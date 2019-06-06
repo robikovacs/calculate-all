@@ -9,19 +9,19 @@ module CalculateAll
           when String
             key
           when :count
-            'COUNT(*)'
+            'COALESCE(COUNT(*), 0)'
           when /^(.*)_distinct_count$/, /^count_distinct_(.*)$/
-            "COUNT(DISTINCT #{$1})"
+            "COALESCE(COUNT(DISTINCT #{$1}), 0)"
           when /^(.*)_(count|sum|max|min|avg)$/
-            "#{$2.upcase}(#{$1})"
+            "COALESCE(#{$2.upcase}(#{$1}), 0)"
           when /^(count|sum|max|min|avg)_(.*)$$/
-            "#{$1.upcase}(#{$2})"
+            "COALESCE(#{$1.upcase}(#{$2}), 0)"
           when /^(.*)_average$/, /^average_(.*)$/
-            "AVG(#{$1})"
+            "COALESCE(AVG(#{$1}), 0)"
           when /^(.*)_maximum$/, /^maximum_(.*)$/
-            "MAX(#{$1})"
+            "COALESCE(MAX(#{$1}), 0)"
           when /^(.*)_minimum$/, /^minimum_(.*)$/
-            "MIN(#{$1})"
+            "COALESCE(MIN(#{$1}), 0)"
           else
             raise ArgumentError, "Can't recognize function alias #{key}"
           end
