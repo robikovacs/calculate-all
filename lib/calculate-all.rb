@@ -4,7 +4,7 @@ require 'calculate-all/querying'
 
 module CalculateAll
   # Method to aggregate function results in one request
-  def calculate_all(*function_aliases, **functions, &block)
+  def calculate_all(...function_aliases, **functions, &block)
 
     # If only one function_alias is given, the result can be just a single value
     # So return [{ cash: 3 }] instead of [{ cash: { count: 3 }}]
