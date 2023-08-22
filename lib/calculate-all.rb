@@ -4,8 +4,10 @@ require 'calculate-all/querying'
 
 module CalculateAll
   # Method to aggregate function results in one request
-  def calculate_all(...function_aliases, **functions, &block)
-
+  def calculate_all(*args, &block)
+    function_aliases = args.select { |arg| arg.is_a?(Symbol) }
+    functions = args.select { |arg| arg.is_a?(Hash) }.reduce({}, &:merge)
+    
     # If only one function_alias is given, the result can be just a single value
     # So return [{ cash: 3 }] instead of [{ cash: { count: 3 }}]
     if function_aliases.size == 1 && functions == {}
